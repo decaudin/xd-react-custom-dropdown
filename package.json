@@ -1,5 +1,5 @@
 {
-  "name": "react-custom-dropdown",
+  "name": "xd-react-custom-dropdown",
   "version": "0.1.0",
   "description": "A customizable dropdown component for React.",
   "main": "dist/index.js",
@@ -16,9 +16,9 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/decaudin/react-custom-dropdown.git"
+    "url": "https://github.com/decaudin/xd-react-custom-dropdown.git"
   },
-  "homepage": "https://github.com/decaudin/react-custom-dropdown",
+  "homepage": "https://github.com/decaudin/xd-react-custom-dropdown",
   "keywords": [
     "react",
     "dropdown",
