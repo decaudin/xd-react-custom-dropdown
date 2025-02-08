@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/main.tsx'),
+      entry: path.resolve(__dirname, 'src/index.ts'),
       name: 'react-custom-dropdown',
       fileName: (format) => `react-custom-dropdown.${format}.js`,
     },
