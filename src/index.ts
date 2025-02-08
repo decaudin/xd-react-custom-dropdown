@@ -1,1 +1,1 @@
-export { default as CustomDropdown } from './customDropdown.tsx';
+export { default as CustomDropdown } from './customDropdown';

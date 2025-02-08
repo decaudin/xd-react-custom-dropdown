@@ -5,6 +5,11 @@ import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      'xd-react-custom-dropdown': path.resolve(__dirname, 'node_modules/xd-react-custom-dropdown/dist/react-custom-dropdown.es.js'),
+    },
+  },
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),

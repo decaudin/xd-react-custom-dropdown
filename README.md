@@ -1,4 +1,4 @@
-# react-custom-dropdown
+# xd-react-custom-dropdown
 
 A **React dropdown component** styled with Tailwind CSS, ready to use with built-in styles but customizable through props.
 
@@ -7,13 +7,13 @@ A **React dropdown component** styled with Tailwind CSS, ready to use with built
 To install the package in your project, run:
 
 ```
-npm install react-custom-dropdown
+npm install xd-react-custom-dropdown
 ```
 
 or 
 
 ```
-yarn add react-custom-dropdown
+yarn add xd-react-custom-dropdown
 ```
 
 To import the component:

@@ -5,7 +5,7 @@ interface Option {
     label: string;
 }
 
-interface CustomDropdownProps {
+export interface CustomDropdownProps {
     label: string;
     options: Option[];
     selected: string;

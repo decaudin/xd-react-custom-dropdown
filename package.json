@@ -1,8 +1,7 @@
 {
   "name": "xd-react-custom-dropdown",
-  "version": "0.1.0",
+  "version": "0.6.0",
   "description": "A customizable dropdown component for React.",
-  "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -28,7 +27,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "eslint .",
     "preview": "vite preview",
     "prepublishOnly": "npm run build"
