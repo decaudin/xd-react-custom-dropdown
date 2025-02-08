@@ -128,7 +128,7 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
                                 onMouseEnter={() => handleMouseEnter(option.value)}
                                 onMouseLeave={handleMouseLeave}
                                 tabIndex={-1}
-                                className={`px-4 cursor-pointer font-sans ${selected === option.value ? 'bg-blue-500 text-white' : ''} ${hoveredOption === option.value ? 'bg-blue-100' : ''} ${index === selectedIndex ? 'bg-blue-100' : ''} ${optionClassName}`}
+                                className={`px-4 cursor-pointer font-sans mt-0.5 ${selected === option.value ? 'bg-blue-500 text-white' : ''} ${hoveredOption === option.value ? 'bg-blue-100' : ''} ${index === selectedIndex ? 'bg-blue-100' : ''} ${optionClassName}`}
                             >
                                 {option.label}
                             </li>

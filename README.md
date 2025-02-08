@@ -19,7 +19,7 @@ yarn add xd-react-custom-dropdown
 To import the component:
 
 ```
-import CustomDropdown from "react-custom-dropdown";
+import CustomDropdown from "xd-react-custom-dropdown";
 ```
 
 ## Usage
