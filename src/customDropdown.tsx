@@ -38,10 +38,20 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
         };
     }, []);
 
+    useEffect(() => {
+        if (isOpen && listRef.current) {
+            const selectedElement = listRef.current.children[selectedIndex] as HTMLElement;
+            if (selectedElement) {
+                selectedElement.scrollIntoView({ block: "center" });
+            }
+        }
+    }, [selectedIndex, isOpen]);
+
     const handleSelect = (value: string) => {
         const newIndex = options.findIndex(option => option.value === value);
         setSelectedIndex(newIndex);
         onChange(value);
+        setHoveredOption(null); 
         setIsOpen(false);
         buttonRef.current?.focus()
     };
@@ -72,22 +82,9 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
         }
     };    
 
-    useEffect(() => {
-        if (isOpen && listRef.current) {
-            const selectedElement = listRef.current.children[selectedIndex] as HTMLElement;
-            if (selectedElement) {
-                selectedElement.scrollIntoView({ block: "center" });
-            }
-        }
-    }, [selectedIndex, isOpen]);
+    const handleMouseEnter = (value: string) => setHoveredOption(value);
 
-    const handleMouseEnter = (value: string) => {
-        setHoveredOption(value);
-    };
-
-    const handleMouseLeave = () => {
-        setHoveredOption(null);
-    };
+    const handleMouseLeave = () => setHoveredOption(null);
 
     return (
         <div className={`relative w-[260px] ${wrapperClassName}`} ref={dropdownRef} role="combobox" aria-haspopup="listbox" aria-expanded={isOpen} aria-labelledby={label}>
@@ -96,7 +93,7 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
                 ref={buttonRef}
                 onClick={() => setIsOpen(!isOpen)}
                 onKeyDown={handleKeyDown}
-                className={`w-full border border-gray-400 bg-gray-100 hover:bg-gray-200 rounded mt-2 py-2 px-4 font-sans cursor-pointer flex justify-between items-center overflow-hidden text-ellipsis whitespace-nowrap ${buttonClassName}`}
+                className={`w-full border border-gray-400 bg-gray-100 hover:bg-gray-200 rounded mt-2 py-2 px-4 font-sans cursor-pointer flex justify-between items-center ${buttonClassName}`}
                 aria-labelledby={label}
                 aria-controls="dropdown-list"
                 aria-activedescendant={`option-${options[selectedIndex]?.value}`}
@@ -110,7 +107,7 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
                     id="dropdown-list"
                     role="listbox"
                     aria-labelledby={label}
-                    className={`absolute w-full bg-white border border-gray-400 rounded shadow-lg max-h-48 overflow-y-auto ${dropdownClassName}`}
+                    className={`absolute w-full bg-white border border-gray-400 rounded shadow-lg max-h-48 ${dropdownClassName}`}
                     style={{
                         scrollbarWidth: "none",
                         WebkitOverflowScrolling: "touch",
@@ -118,7 +115,7 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
                     }}
                 >
                     <ul ref={listRef}>
-                        {options.map((option, index) => (
+                        {options.map((option) => (
                             <li
                                 key={option.value}
                                 role="option"
@@ -128,7 +125,7 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
                                 onMouseEnter={() => handleMouseEnter(option.value)}
                                 onMouseLeave={handleMouseLeave}
                                 tabIndex={-1}
-                                className={`px-4 cursor-pointer font-sans mt-0.5 ${selected === option.value ? 'bg-blue-500 text-white' : ''} ${hoveredOption === option.value ? 'bg-blue-100' : ''} ${index === selectedIndex ? 'bg-blue-100' : ''} ${optionClassName}`}
+                                className={`px-4 cursor-pointer font-sans mt-0.5 ${selected === option.value ? 'bg-blue-500 text-white' : ''} ${hoveredOption === option.value ? 'bg-blue-100' : ''} ${optionClassName}`}
                             >
                                 {option.label}
                             </li>
