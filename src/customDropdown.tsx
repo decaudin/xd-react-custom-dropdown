@@ -58,6 +58,7 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
         if (value !== selected) {
             onChange(value);
         }
+        setHoveredOption(null);
         setIsOpen(false);
         buttonRef.current?.focus();
     };
@@ -76,6 +77,7 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
 
         if (e.key === "ArrowDown" || e.key === "ArrowUp") {
             e.preventDefault();
+            setHoveredOption(options[newIndex].value);
             onChange(options[newIndex].value);
         }
     
@@ -86,16 +88,15 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
     };
 
     return (
-        <div className={`relative w-[260px] ${wrapperClassName}`} ref={dropdownRef} role="combobox" aria-haspopup="listbox" aria-expanded={isOpen} aria-labelledby={label}>
+        <div aria-labelledby={label} aria-haspopup="listbox" aria-expanded={isOpen} role="combobox" ref={dropdownRef} className={`relative w-[260px] ${wrapperClassName}`}>
             <label id={label}>{label}</label>
             <button
-                ref={buttonRef}
-                onClick={handleButtonClick}
-                onKeyDown={handleKeyDown}
-                className={`w-full border border-gray-400 bg-gray-100 hover:bg-gray-200 rounded mt-2 py-2 px-4 font-sans cursor-pointer flex justify-between items-center ${buttonClassName}`}
-                aria-labelledby={label}
                 aria-controls="dropdown-list"
                 aria-activedescendant={`option-${options[newIndex]?.value}`}
+                ref={buttonRef}
+                onKeyDown={handleKeyDown}
+                onClick={handleButtonClick}
+                className={`flex justify-between items-center w-full py-2 px-4 mt-2 border border-gray-400 bg-gray-100 rounded cursor-pointer font-sans hover:bg-gray-200 ${buttonClassName}`}  
             >
                 <span className="truncate">{options[selectedIndex]?.label || options[0]?.label}</span>
                 <span className="text-sm">⏷</span>
@@ -103,27 +104,26 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
 
             {isOpen && (
                 <div
-                    id="dropdown-list"
                     role="listbox"
-                    aria-labelledby={label}
-                    className={`absolute w-full bg-white border border-gray-400 rounded shadow-lg max-h-48 ${dropdownClassName}`}
+                    id="dropdown-list"
+                    className={`absolute w-full max-h-48 bg-white border border-gray-400 rounded shadow-lg ${dropdownClassName}`}                  
                     style={{
                         scrollbarWidth: "none",
                         WebkitOverflowScrolling: "touch",
                         overflowY: "scroll",
                     }}
                 >
-                    <ul ref={listRef} aria-labelledby={label}>
+                    <ul ref={listRef} >
                         {options.map((option) => (
                             <li
-                                key={option.value}
+                                aria-selected={selected === option.value}
                                 role="option"
                                 id={`option-${option.value}`}
-                                aria-selected={selected === option.value}
-                                onClick={() => handleSelect(option.value)}
-                                className={`px-4 cursor-pointer font-sans mt-0.5 ${selected === option.value ? 'bg-blue-500 text-white' : ''} ${hoveredOption === option.value ? 'bg-blue-100' : ''} ${optionClassName}`}
+                                key={option.value}
                                 onMouseEnter={() => setHoveredOption(option.value)}
                                 onMouseLeave={() => setHoveredOption(null)}
+                                onClick={() => handleSelect(option.value)}
+                                className={`px-4 mt-0.5 font-sans cursor-pointer ${selected === option.value ? 'bg-blue-500 text-white' : ''} ${hoveredOption === option.value ? 'bg-blue-100' : ''} ${optionClassName}`}                                  
                             >
                                 {option.label}
                             </li>
