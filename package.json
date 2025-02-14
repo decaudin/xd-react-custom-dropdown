@@ -1,6 +1,6 @@
 {
   "name": "xd-react-custom-dropdown",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "description": "A customizable dropdown component for React.",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",

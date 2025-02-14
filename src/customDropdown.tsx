@@ -23,6 +23,8 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
     const dropdownRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const listRef = useRef<HTMLUListElement>(null);
+    const [searchQuery, setSearchQuery] = useState("");
+    const searchTimeout = useRef<number | null>(null);
 
     const selectedIndex = options.findIndex(option => option.value === selected);
     let newIndex = selectedIndex;
@@ -84,6 +86,22 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
         if (e.key === "Enter") {
             e.preventDefault();
             setIsOpen((prev) => !prev);
+        }
+
+        if (/^[a-zA-Z0-9]$/.test(e.key)) {
+            const newQuery = searchQuery + e.key.toLowerCase();
+            setSearchQuery(newQuery);
+
+            const match = options.find(opt => opt.label.toLowerCase().startsWith(newQuery));
+
+            if (match) {
+                onChange(match.value);
+            }
+
+            if (searchTimeout.current) {
+                clearTimeout(searchTimeout.current);
+            }
+            searchTimeout.current = window.setTimeout(() => setSearchQuery(""), 1000);
         }
     };
 
