@@ -69,16 +69,16 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
         if (e.key === "Escape") {
             setIsOpen(false);
             return;
-        }  
-
-        if (e.key === "ArrowDown") {
-            newIndex = (selectedIndex + 1) % options.length;
-        } else if (e.key === "ArrowUp") {
-            newIndex = (selectedIndex - 1 + options.length) % options.length;
         }
 
+        if (e.key === "Tab") {
+            setIsOpen(false);
+            return;
+        }
+           
         if (e.key === "ArrowDown" || e.key === "ArrowUp") {
             e.preventDefault();
+            newIndex = e.key === "ArrowDown" ? (selectedIndex + 1) % options.length : (selectedIndex - 1 + options.length) % options.length; 
             setHoveredOption(options[newIndex].value);
             onChange(options[newIndex].value);
         }
@@ -94,22 +94,22 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
 
             const match = options.find(opt => opt.label.toLowerCase().startsWith(newQuery));
 
-            if (match) {
-                onChange(match.value);
-            }
+            if (match) onChange(match.value);
 
-            if (searchTimeout.current) {
-                clearTimeout(searchTimeout.current);
-            }
+            if (searchTimeout.current) clearTimeout(searchTimeout.current);
+
             searchTimeout.current = window.setTimeout(() => setSearchQuery(""), 1000);
         }
     };
 
     return (
-        <div aria-labelledby={label} aria-haspopup="listbox" aria-expanded={isOpen} role="combobox" ref={dropdownRef} className={`relative w-[260px] ${wrapperClassName}`}>
+        <div role="combobox" ref={dropdownRef} className={`relative w-[260px] ${wrapperClassName}`}>
             <label id={label}>{label}</label>
             <button
+                aria-labelledby={label}
                 aria-controls="dropdown-list"
+                aria-haspopup="listbox"
+                aria-expanded={isOpen}
                 aria-activedescendant={`option-${options[newIndex]?.value}`}
                 ref={buttonRef}
                 onKeyDown={handleKeyDown}
