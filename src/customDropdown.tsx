@@ -103,14 +103,9 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
     };
 
     return (
-        <div role="combobox" ref={dropdownRef} className={`relative w-[260px] ${wrapperClassName}`}>
-            <label id={label}>{label}</label>
+        <div ref={dropdownRef} className={`relative w-[260px] ${wrapperClassName}`}>
+            <label>{label}</label>
             <button
-                aria-labelledby={label}
-                aria-controls="dropdown-list"
-                aria-haspopup="listbox"
-                aria-expanded={isOpen}
-                aria-activedescendant={`option-${options[newIndex]?.value}`}
                 ref={buttonRef}
                 onKeyDown={handleKeyDown}
                 onClick={handleButtonClick}
@@ -122,8 +117,6 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
 
             {isOpen && (
                 <div
-                    role="listbox"
-                    id="dropdown-list"
                     className={`absolute w-full max-h-48 bg-white border border-gray-400 rounded shadow-lg ${dropdownClassName}`}                  
                     style={{
                         scrollbarWidth: "none",
@@ -134,9 +127,6 @@ export default function CustomDropdown({ label, options, selected, onChange, wra
                     <ul ref={listRef} >
                         {options.map((option) => (
                             <li
-                                aria-selected={selected === option.value}
-                                role="option"
-                                id={`option-${option.value}`}
                                 key={option.value}
                                 onMouseEnter={() => setHoveredOption(option.value)}
                                 onMouseLeave={() => setHoveredOption(null)}
